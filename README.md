@@ -1,6 +1,8 @@
 # oh-my-wechaty-dev
 
 你的第一个 wechaty Docker 开发环境。
+
+这个项目受方方老师 [oh-my-docker](https://github.com/FrankFang/oh-my-docker) 项目启发创建， 在此鸣谢 [FrankFang](https://github.com/FrankFang) 。
 ## 使用方法
   1. 安装最新版 Docker 客户端，并运行 Docker 启用docker-compose（window默认安装，其它平台自行了解配置。）
   2. 国内用户建议按照[这篇教程](https://www.runoob.com/docker/docker-mirror-acceleration.html)配置加速镜像
