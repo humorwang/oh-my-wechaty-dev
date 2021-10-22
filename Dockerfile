@@ -5,12 +5,12 @@ LABEL maintainer="humorwang <wangyan4170@gmail.com>"
 WORKDIR /tmp
 ENV SHELL /bin/bash
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # basic tools
 RUN apk update && apk upgrade \
     && apk add --no-cache \
-    udev \
+    udev  \
     chromium \
     nss \
     freetype \
@@ -31,6 +31,15 @@ RUN apk update && apk upgrade \
 ENV EDITOR=/usr/bin/vim
 ENV VISUAL=/usr/bin/vim
 
+
+# Python 3 and pip
+ENV PYTHONUNBUFFERED=1
+ADD pip.cn.conf /root/.config/pip/pip.conf
+RUN apk add --update --no-cache python3 &&\
+    ln -sf python3 /usr/bin/python &&\
+    python3 -m ensurepip &&\
+    pip3 install --no-cache --upgrade pip setuptools
+# end
 
 #  set PUPPETEER
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
