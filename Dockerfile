@@ -1,4 +1,4 @@
-FROM node:14.17.6-alpine3.14
+FROM node:16.13.0-alpine
 
 LABEL maintainer="humorwang <wangyan4170@gmail.com>"
 
@@ -24,12 +24,19 @@ RUN apk update && apk upgrade \
     jq \
     moreutils \
     cmake bash git vim \
-    xauth 
+    xauth  
 #end
 
 
 ENV EDITOR=/usr/bin/vim
 ENV VISUAL=/usr/bin/vim
+
+
+# Dev env for JS
+RUN apk add --no-cache yarn&& \
+    npm config set registry=https://registry.npm.taobao.org; \
+    yarn global add nrm pnpm; 
+# end
 
 
 # Python 3 and pip
@@ -40,11 +47,6 @@ RUN apk add --update --no-cache python3 &&\
     python3 -m ensurepip &&\
     pip3 install --no-cache --upgrade pip setuptools
 # end
-
-#  set PUPPETEER
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-# end 
 
 
 # zsh
@@ -61,5 +63,15 @@ RUN npm config set registry https://registry.npm.taobao.org \
     && npm config set disturl https://npm.taobao.org/dist \
     && npm config set puppeteer_download_host https://npm.taobao.org/mirrors 
 
+#  set PUPPETEER
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# end 
+
+RUN yarn add puppeteer@10.2.0
+
+
 RUN export WECHATY_PUPPET=wechaty-puppet-wechat
+
+
 
