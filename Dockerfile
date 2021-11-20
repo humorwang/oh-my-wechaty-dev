@@ -34,8 +34,7 @@ ENV VISUAL=/usr/bin/vim
 
 # Dev env for JS
 RUN apk add --no-cache yarn&& \
-    npm config set registry=https://registry.npm.taobao.org; \
-    yarn global add nrm pnpm; 
+    npm config set registry=https://registry.npm.taobao.org; 
 # end
 
 
